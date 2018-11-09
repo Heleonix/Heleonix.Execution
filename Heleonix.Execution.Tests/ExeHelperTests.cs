@@ -5,6 +5,7 @@
 
 namespace Heleonix.Execution.Tests
 {
+    using System;
     using Heleonix.Execution;
     using Heleonix.Execution.Tests.Common;
     using Heleonix.Testing.NUnit.Aaa;
@@ -30,6 +31,8 @@ namespace Heleonix.Execution.Tests
 
                 Act(() =>
                 {
+                    Console.WriteLine(ExeSimulatorPath.ExePath);
+
                     result = ExeHelper.Execute(
                         ExeSimulatorPath.ExePath,
                         $"WriteOutput={extractOutput} ExitCode=1",
