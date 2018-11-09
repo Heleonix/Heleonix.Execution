@@ -7,6 +7,7 @@ namespace Heleonix.Execution.Tests.Common
 {
     using System;
     using System.IO;
+    using System.Reflection;
 
     /// <summary>
     /// The exe simulator paths.
@@ -17,7 +18,8 @@ namespace Heleonix.Execution.Tests.Common
         /// The current directory.
         /// </summary>
         private static readonly string CurrentDir =
-            AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty))
+                .TrimEnd(Path.DirectorySeparatorChar);
 
         /// <summary>
         /// Gets the project directory path.
