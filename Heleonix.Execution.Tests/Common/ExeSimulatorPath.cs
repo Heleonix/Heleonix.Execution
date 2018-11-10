@@ -24,16 +24,6 @@ namespace Heleonix.Execution.Tests.Common
         /// <summary>
         /// Gets the project directory path.
         /// </summary>
-        public static string ExePath => Path.Combine(
-            CurrentDir,
-            "..",
-            "..",
-            "..",
-            "..",
-            "Heleonix.Execution.Tests.ExeSimulator",
-            "bin",
-            Path.GetFileName(Path.GetDirectoryName(CurrentDir)),
-            "net461",
-            "Heleonix.Execution.Tests.ExeSimulator.exe");
+        public static string ExePath => Path.Combine(CurrentDir, "Heleonix.Execution.Tests.ExeSimulator.exe");
     }
 }

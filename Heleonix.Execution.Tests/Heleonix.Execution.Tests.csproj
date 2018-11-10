@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Heleonix.Execution.Tests.ExeSimulator\Heleonix.Execution.Tests.ExeSimulator.csproj" />
     <ProjectReference Include="..\Heleonix.Execution\Heleonix.Execution.csproj" />
   </ItemGroup>
 
