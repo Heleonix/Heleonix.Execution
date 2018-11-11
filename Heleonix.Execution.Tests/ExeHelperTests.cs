@@ -31,8 +31,6 @@ namespace Heleonix.Execution.Tests
 
                 Act(() =>
                 {
-                    Console.WriteLine(ExeSimulatorPath.ExePath);
-
                     result = ExeHelper.Execute(
                         ExeSimulatorPath.ExePath,
                         $"WriteOutput={extractOutput} ExitCode=1",
@@ -63,6 +61,31 @@ namespace Heleonix.Execution.Tests
                         Assert.That(result.Error, Is.Null);
                         Assert.That(result.Output, Is.Null);
                     });
+                });
+            });
+        }
+
+        /// <summary>
+        /// Tests the <see cref="ExeHelper.Execute(string,string,string)"/>
+        /// </summary>
+        [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,string)")]
+        public static void Execute2()
+        {
+            When("the method is executed", () =>
+            {
+                var result = 0;
+
+                Act(() =>
+                {
+                    result = ExeHelper.Execute(
+                        ExeSimulatorPath.ExePath,
+                        $"WriteOutput=false ExitCode=0",
+                        string.Empty);
+                });
+
+                Should("return success exit code", () =>
+                {
+                    Assert.That(result, Is.Zero);
                 });
             });
         }

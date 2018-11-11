@@ -296,6 +296,16 @@ namespace Heleonix.Execution.Tests
                 {
                     condition = true;
 
+                    And("the values has null value", () =>
+                    {
+                        values = new[] { "value1", null };
+
+                        Should("provide only non-null values", () =>
+                        {
+                            Assert.That(result, Is.EqualTo("value1"));
+                        });
+                    });
+
                     And("values are provided", () =>
                     {
                         values = new[] { "value1", "value2" };
@@ -460,6 +470,16 @@ namespace Heleonix.Execution.Tests
                     {
                         key = "key1";
 
+                        And("the values has null value", () =>
+                        {
+                            values = new[] { "value1", null };
+
+                            Should("provide only non-null values", () =>
+                            {
+                                Assert.That(result, Is.EqualTo("-key1=value1"));
+                            });
+                        });
+
                         And("the values are provided", () =>
                         {
                             values = new[] { "value1", "value2" };
@@ -468,15 +488,15 @@ namespace Heleonix.Execution.Tests
                             {
                                 Assert.That(result, Is.EqualTo("-key1=value1;value2"));
                             });
-                        });
 
-                        And("the key with values should be added multiple times", () =>
-                        {
-                            multipleTimes = true;
-
-                            Should("provide the argument with the provided values with teir own keys", () =>
+                            And("the key with values should be added multiple times", () =>
                             {
-                                Assert.That(result, Is.EqualTo("-key1=value1 -key1=value2"));
+                                multipleTimes = true;
+
+                                Should("provide the argument with the provided values with teir own keys", () =>
+                                {
+                                    Assert.That(result, Is.EqualTo("-key1=value1 -key1=value2"));
+                                });
                             });
                         });
 
@@ -489,25 +509,25 @@ namespace Heleonix.Execution.Tests
                                 Assert.That(result, Is.Empty);
                             });
                         });
+                    });
 
-                        And("the key is an empty string", () =>
+                    And("the key is an empty string", () =>
+                    {
+                        key = string.Empty;
+
+                        Should("provide an empty string", () =>
                         {
-                            key = string.Empty;
-
-                            Should("provide an empty string", () =>
-                            {
-                                Assert.That(result, Is.Empty);
-                            });
+                            Assert.That(result, Is.Empty);
                         });
+                    });
 
-                        And("the key is null", () =>
+                    And("the key is null", () =>
+                    {
+                        key = null;
+
+                        Should("provide an empty string", () =>
                         {
-                            key = null;
-
-                            Should("provide an empty string", () =>
-                            {
-                                Assert.That(result, Is.Empty);
-                            });
+                            Assert.That(result, Is.Empty);
                         });
                     });
                 });
