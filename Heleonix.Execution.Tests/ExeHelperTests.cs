@@ -5,6 +5,7 @@
 
 namespace Heleonix.Execution.Tests
 {
+    using System;
     using Heleonix.Execution;
     using Heleonix.Execution.Tests.Common;
     using Heleonix.Testing.NUnit.Aaa;
@@ -27,39 +28,88 @@ namespace Heleonix.Execution.Tests
             {
                 var extractOutput = false;
                 ExeResult result = null;
+                string exePath = null;
+                Exception thrownException = null;
+
+                Act(() =>
+                {
+                    try
+                    {
+                        result = ExeHelper.Execute(
+                        exePath,
+                        $"WriteOutput={extractOutput} ExitCode=1",
+                        extractOutput,
+                        string.Empty,
+                        200);
+                    }
+                    catch (Exception e)
+                    {
+                        thrownException = e;
+                    }
+                });
+
+                And("executable file name is specified", () =>
+                {
+                    exePath = ExeSimulatorPath.ExePath;
+
+                    And("output should be extracted", () =>
+                    {
+                        extractOutput = true;
+
+                        Should("return result with extracted output", () =>
+                        {
+                            Assert.That(result.ExitCode, Is.EqualTo(1));
+                            Assert.That(result.Error, Contains.Substring("-error-"));
+                            Assert.That(result.Output, Contains.Substring("-output-"));
+                        });
+                    });
+
+                    And("output should not be extracted", () =>
+                    {
+                        extractOutput = false;
+
+                        Should("return result without extracted output", () =>
+                        {
+                            Assert.That(result.ExitCode, Is.EqualTo(1));
+                            Assert.That(result.Error, Is.Null);
+                            Assert.That(result.Output, Is.Null);
+                        });
+                    });
+                });
+
+                And("executable file name is not specified", () =>
+                {
+                    exePath = null;
+
+                    Should("throw the InvalidOperationException", () =>
+                    {
+                        Assert.That(thrownException, Is.InstanceOf<InvalidOperationException>());
+                    });
+                });
+            });
+        }
+
+        /// <summary>
+        /// Tests the <see cref="ExeHelper.Execute(string,string,string)"/>
+        /// </summary>
+        [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,string)")]
+        public static void Execute2()
+        {
+            When("the method is executed", () =>
+            {
+                var result = 0;
 
                 Act(() =>
                 {
                     result = ExeHelper.Execute(
                         ExeSimulatorPath.ExePath,
-                        $"WriteOutput={extractOutput} ExitCode=1",
-                        extractOutput,
-                        string.Empty,
-                        200);
+                        $"WriteOutput=false ExitCode=0",
+                        string.Empty);
                 });
 
-                And("output should be extracted", () =>
+                Should("return success exit code", () =>
                 {
-                    extractOutput = true;
-
-                    Should("return result with extracted output", () =>
-                    {
-                        Assert.That(result.ExitCode, Is.EqualTo(1));
-                        Assert.That(result.Error, Contains.Substring("-error-"));
-                        Assert.That(result.Output, Contains.Substring("-output-"));
-                    });
-                });
-
-                And("output should not be extracted", () =>
-                {
-                    extractOutput = false;
-
-                    Should("return result without extracted output", () =>
-                    {
-                        Assert.That(result.ExitCode, Is.EqualTo(1));
-                        Assert.That(result.Error, Is.Null);
-                        Assert.That(result.Output, Is.Null);
-                    });
+                    Assert.That(result, Is.Zero);
                 });
             });
         }
