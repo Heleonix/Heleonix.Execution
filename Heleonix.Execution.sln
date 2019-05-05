@@ -10,13 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
-		SharedProjectInfo.proj = SharedProjectInfo.proj
+		SharedProjectInfo.props = SharedProjectInfo.props
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heleonix.Execution.Tests.ExeSimulator", "Heleonix.Execution.Tests.ExeSimulator\Heleonix.Execution.Tests.ExeSimulator.csproj", "{9AB12922-D9CA-498C-BC8D-39B6B88F55DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heleonix.Execution.Tests", "Heleonix.Execution.Tests\Heleonix.Execution.Tests.csproj", "{B35408E2-D592-4157-997A-21611F54D54D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heleonix.Execution.Tests", "Heleonix.Execution.Tests\Heleonix.Execution.Tests.csproj", "{B35408E2-D592-4157-997A-21611F54D54D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{412A5D12-9FA9-4FC3-B9CC-5B7042B3DED6}"
 EndProject
