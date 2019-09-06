@@ -37,7 +37,7 @@ namespace Heleonix.Execution
         ///
         /// Console.WriteLine(result.ExitCode); // An exit code: value returned by `Main` or by `Environment.Exit(exitCode)` etc.
         /// Console.WriteLine(result.Output); // Output like `Console.WriteLine` is available here
-        /// Console.WriteLine(result.Error); // Output like `Console.Error.WriteLine` is available here
+        /// Console.WriteLine(result.Error); // Output like `Console.Error.WriteLine` is available here.
         /// </example>
         public static ExeResult Execute(
             string exePath,
@@ -61,8 +61,8 @@ namespace Heleonix.Execution
                         WorkingDirectory = workingDirectory,
                         UseShellExecute = false,
                         RedirectStandardOutput = extractOutput,
-                        RedirectStandardError = extractOutput
-                    }
+                        RedirectStandardError = extractOutput,
+                    },
                 })
                 {
                     process.Start();
@@ -77,7 +77,7 @@ namespace Heleonix.Execution
                     {
                         ExitCode = process.ExitCode,
                         Output = output,
-                        Error = error
+                        Error = error,
                     };
                 }
             }

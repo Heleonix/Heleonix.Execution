@@ -19,7 +19,7 @@ namespace Heleonix.Execution.Tests
     public static class ExeHelperTests
     {
         /// <summary>
-        /// Tests the <see cref="ExeHelper.Execute(string,string,bool,string,int)"/>
+        /// Tests the <see cref="ExeHelper.Execute(string,string,bool,string,int)"/>.
         /// </summary>
         [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,bool,string,int)")]
         public static void Execute1()
@@ -42,7 +42,9 @@ namespace Heleonix.Execution.Tests
                         string.Empty,
                         200);
                     }
+#pragma warning disable CA1031 // Do not catch general exception types
                     catch (Exception e)
+#pragma warning restore CA1031 // Do not catch general exception types
                     {
                         thrownException = e;
                     }
@@ -90,7 +92,7 @@ namespace Heleonix.Execution.Tests
         }
 
         /// <summary>
-        /// Tests the <see cref="ExeHelper.Execute(string,string,string)"/>
+        /// Tests the <see cref="ExeHelper.Execute(string,string,string)"/>.
         /// </summary>
         [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,string)")]
         public static void Execute2()

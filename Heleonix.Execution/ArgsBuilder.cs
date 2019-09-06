@@ -108,7 +108,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddKey("key1", canAddKey);
         ///
-        /// // args: "--key1"
+        /// // args: "--key1".
         /// </example>
         public ArgsBuilder AddKey(string key, bool condition = true)
         {
@@ -131,7 +131,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddKeys(new[] { "key1", "key2" }, canAddKeys);
         ///
-        /// // args: "--key1 --key2"
+        /// // args: "--key1 --key2".
         /// </example>
         public ArgsBuilder AddKeys(IEnumerable<string> keys, bool condition = true)
         {
@@ -158,7 +158,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddValue("12345", canAddValue);
         ///
-        /// // args: "12345"
+        /// // args: "12345".
         /// </example>
         public ArgsBuilder AddValue(object value, bool condition = true)
         {
@@ -183,7 +183,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddValues(new [] { "111", "222", canAddValues);
         ///
-        /// // args: "111 222"
+        /// // args: "111 222".
         /// </example>
         public ArgsBuilder AddValues(IEnumerable<object> values, bool condition = true)
         {
@@ -211,7 +211,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddArgument("arg1", "value1", canAddArgument);
         ///
-        /// // args: "--arg1=value1"
+        /// // args: "--arg1=value1".
         /// </example>
         public ArgsBuilder AddArgument(string key, object value, bool condition = true)
         {
@@ -242,7 +242,7 @@ namespace Heleonix.Execution
         ///
         /// // args: "--key=111,222"
         ///
-        /// // multipleArgs: "--key=111 --key=222"
+        /// // multipleArgs: "--key=111 --key=222".
         /// </example>
         public ArgsBuilder AddArguments(
             string key,
@@ -285,7 +285,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddPath("C:\My Folder\my file.txt", canAddPath);
         ///
-        /// // args: ""C:\My Folder\my file.txt""
+        /// // args: ""C:\My Folder\my file.txt"".
         /// </example>
         public ArgsBuilder AddPath(string path, bool condition = true)
         {
@@ -309,7 +309,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddPath("key", "C:\My Folder\my file.txt", canAddPath);
         ///
-        /// // args: "--key="C:\My Folder\my file.txt""
+        /// // args: "--key="C:\My Folder\my file.txt"".
         /// </example>
         public ArgsBuilder AddPath(string key, string path, bool condition = true)
         {
@@ -333,7 +333,7 @@ namespace Heleonix.Execution
         ///
         /// var args = ArgsBuilder.By("--", "=").AddPaths(new [] { "C:\my file 1.txt", "C:\my file 2.txt", canAddPaths);
         ///
-        /// // args: ""C:\my file 1.txt" "C:\my file 2.txt""
+        /// // args: ""C:\my file 1.txt" "C:\my file 2.txt"".
         /// </example>
         public ArgsBuilder AddPaths(IEnumerable<string> paths, bool condition = true)
         {
@@ -368,7 +368,7 @@ namespace Heleonix.Execution
         ///
         /// // args: "--key="C:\my file 1.txt","C:\my file 2.txt""
         ///
-        /// // multipleArgs: "--key="C:\my file 1.txt" --key="C:\my file 2.txt""
+        /// // multipleArgs: "--key="C:\my file 1.txt" --key="C:\my file 2.txt"".
         /// </example>
         public ArgsBuilder AddPaths(
             string key,
