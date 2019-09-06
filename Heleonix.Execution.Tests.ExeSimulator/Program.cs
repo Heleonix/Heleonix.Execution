@@ -27,7 +27,9 @@ namespace Heleonix.Execution.Tests.ExeSimulator
             if (arguments.ContainsKey("WriteOutput"))
             {
                 Console.WriteLine(Environment.CurrentDirectory);
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 Console.WriteLine("-output-");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 Console.Error.WriteLine("-error-");
             }
 
