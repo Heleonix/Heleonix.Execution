@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExeSimulatorPath.cs" company="Heleonix - Hennadii Lutsyshyn">
-// Copyright (c) 2017-present Heleonix - Hennadii Lutsyshyn. All rights reserved.
+// Copyright (c) Heleonix - Hennadii Lutsyshyn. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the repository root for full license information.
 // </copyright>
 
@@ -18,7 +18,7 @@ namespace Heleonix.Execution.Tests.Common
         /// The current directory.
         /// </summary>
         private static readonly string CurrentDir =
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty))
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location.Replace("file:///", string.Empty))
                 .TrimEnd(Path.DirectorySeparatorChar);
 
         /// <summary>

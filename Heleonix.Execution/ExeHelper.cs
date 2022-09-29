@@ -1,9 +1,8 @@
 ﻿// <copyright file="ExeHelper.cs" company="Heleonix - Hennadii Lutsyshyn">
-// Copyright (c) 2017-present Heleonix - Hennadii Lutsyshyn. All rights reserved.
+// Copyright (c) Heleonix - Hennadii Lutsyshyn. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the repository root for full license information.
 // </copyright>
 
-#if !NETSTANDARD1_6
 namespace Heleonix.Execution
 {
     using System;
@@ -99,4 +98,3 @@ namespace Heleonix.Execution
             => Execute(exePath, arguments, false, workingDirectory, int.MaxValue).ExitCode;
     }
 }
-#endif
