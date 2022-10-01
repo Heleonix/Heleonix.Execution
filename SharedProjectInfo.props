@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <Version>2.0.0</Version>
-    <PackageReleaseNotes>Support of netstandard2.0 only as the taret framework</PackageReleaseNotes>
+    <PackageReleaseNotes>Support of netstandard2.0 only as the target framework</PackageReleaseNotes>
 
     <Description>Provides a command line arguments builder, methods to run executables and extract outputs, etc.</Description>
     <PackageTags>Heleonix exe argument command-line</PackageTags>
