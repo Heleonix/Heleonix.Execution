@@ -1,11 +1,5 @@
 <Project>
   <PropertyGroup>
-    <Version>2.0.0</Version>
-    <PackageReleaseNotes>Support of netstandard2.0 only as the target framework</PackageReleaseNotes>
-
-    <Description>Provides a command line arguments builder, methods to run executables and extract outputs, etc.</Description>
-    <PackageTags>Heleonix exe argument command-line</PackageTags>
-
     <Authors>Heleonix - Hennadii Lutsyshyn</Authors>
     <Copyright>Copyright (c) Heleonix - Hennadii Lutsyshyn</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -16,11 +10,19 @@
     <PackageProjectUrl>https://github.com/Heleonix/Heleonix.Execution</PackageProjectUrl>
     <PackageIconUrl>https://s.gravatar.com/avatar/22d1d9391b9f682a589d324d403ec0d8?s=256</PackageIconUrl>
 
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPackable>true</IsPackable>
-    <IsTool>false</IsTool>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>false</IncludeSource>
     <NoPackageAnalysis>true</NoPackageAnalysis>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
