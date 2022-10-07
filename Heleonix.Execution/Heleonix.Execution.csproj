@@ -2,7 +2,6 @@
   <Import Project="../SharedPackageInfo.props" />
 
   <PropertyGroup>
-    <Version>2.0.0</Version>
     <Description>Provides a command line arguments builder, methods to run executables and extract outputs, etc.</Description>
     <PackageTags>Heleonix exe argument command-line</PackageTags>
     <PackageReleaseNotes>Support of netstandard2.0 only as the target framework</PackageReleaseNotes>
