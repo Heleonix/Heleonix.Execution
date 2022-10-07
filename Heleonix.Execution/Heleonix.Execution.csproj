@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Description>Provides a command line arguments builder, methods to run executables and extract outputs, etc.</Description>
     <PackageTags>Heleonix exe argument command-line</PackageTags>
-    <PackageReleaseNotes>Support of netstandard2.0 only as the target framework</PackageReleaseNotes>
+    <PackageReleaseNotes>Internal improvements</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -29,14 +29,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="codecracker.CSharp" Version="1.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" />
-    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.45.0.54064" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="codecracker.CSharp" Version="1.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.46.0.54807">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
