@@ -5,6 +5,7 @@
 
 namespace Heleonix.Execution.Tests
 {
+    using System;
     using System.Collections.Generic;
     using Heleonix.Execution;
     using Heleonix.Testing.NUnit.Aaa;
@@ -183,6 +184,16 @@ namespace Heleonix.Execution.Tests
                             Assert.That(result, Is.Empty);
                         });
                     });
+
+                    And("keys is empty", () =>
+                    {
+                        keys = Array.Empty<string>();
+
+                        Should("provide an empty string", () =>
+                        {
+                            Assert.That(result, Is.Empty);
+                        });
+                    });
                 });
 
                 And("a condition is false", () =>
@@ -319,6 +330,16 @@ namespace Heleonix.Execution.Tests
                     And("values is null", () =>
                     {
                         values = null;
+
+                        Should("provide an empty string", () =>
+                        {
+                            Assert.That(result, Is.Empty);
+                        });
+                    });
+
+                    And("values is empty", () =>
+                    {
+                        values = Array.Empty<string>();
 
                         Should("provide an empty string", () =>
                         {
@@ -503,6 +524,17 @@ namespace Heleonix.Execution.Tests
                         And("the values is null", () =>
                         {
                             values = null;
+
+                            Should("provide an empty string", () =>
+                            {
+                                Assert.That(result, Is.Empty);
+                            });
+                        });
+
+                        And("the values is empty", () =>
+                        {
+                            multipleTimes = false;
+                            values = Array.Empty<string>();
 
                             Should("provide an empty string", () =>
                             {
@@ -749,6 +781,16 @@ namespace Heleonix.Execution.Tests
                             Assert.That(result, Is.Empty);
                         });
                     });
+
+                    And("the paths is empty", () =>
+                    {
+                        paths = Array.Empty<string>();
+
+                        Should("provide an empty string", () =>
+                        {
+                            Assert.That(result, Is.Empty);
+                        });
+                    });
                 });
 
                 And("a condition is false", () =>
@@ -820,6 +862,17 @@ namespace Heleonix.Execution.Tests
                         And("the paths is null", () =>
                         {
                             paths = null;
+
+                            Should("provide an empty string", () =>
+                            {
+                                Assert.That(result, Is.Empty);
+                            });
+                        });
+
+                        And("the paths is empty", () =>
+                        {
+                            multipleTimes = false;
+                            paths = Array.Empty<string>();
 
                             Should("provide an empty string", () =>
                             {

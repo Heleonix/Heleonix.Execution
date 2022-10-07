@@ -123,6 +123,19 @@ namespace Heleonix.Execution.Tests
                         Assert.That(areEqual, Is.False);
                     });
                 });
+
+                And("the second exe result is null", () =>
+                {
+                    Arrange(() =>
+                    {
+                        exeResult2 = null;
+                    });
+
+                    Should("return false", () =>
+                    {
+                        Assert.That(areEqual, Is.False);
+                    });
+                });
             });
         }
     }
