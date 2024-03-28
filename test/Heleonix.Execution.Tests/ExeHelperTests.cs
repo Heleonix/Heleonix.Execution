@@ -50,23 +50,17 @@ public static class ExeHelperTests
 
             And("executable file name is specified", () =>
             {
-                exePath = ExeSimulatorPath.ExePath;
-
-                And("output should be extracted", () =>
+                Arrange(() =>
                 {
-                    extractOutput = true;
-
-                    Should("return result with extracted output", () =>
-                    {
-                        Assert.That(result.ExitCode, Is.EqualTo(1));
-                        Assert.That(result.Error, Contains.Substring("-error-"));
-                        Assert.That(result.Output, Contains.Substring("-output-"));
-                    });
+                    exePath = ExeSimulatorPath.ExePath;
                 });
 
                 And("output should not be extracted", () =>
                 {
-                    extractOutput = false;
+                    Arrange(() =>
+                    {
+                        extractOutput = false;
+                    });
 
                     Should("return result without extracted output", () =>
                     {
@@ -75,11 +69,29 @@ public static class ExeHelperTests
                         Assert.That(result.Output, Is.Null);
                     });
                 });
+
+                And("output should be extracted", () =>
+                {
+                    Arrange(() =>
+                    {
+                        extractOutput = true;
+                    });
+
+                    Should("return result with extracted output", () =>
+                    {
+                        Assert.That(result.ExitCode, Is.EqualTo(1));
+                        Assert.That(result.Error, Contains.Substring("-error-"));
+                        Assert.That(result.Output, Contains.Substring("-output-"));
+                    });
+                });
             });
 
             And("executable file name is not specified", () =>
             {
-                exePath = null;
+                Arrange(() =>
+                {
+                    exePath = null;
+                });
 
                 Should("throw the InvalidOperationException", () =>
                 {
