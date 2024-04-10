@@ -16,17 +16,17 @@ public static class ExeHelper
     /// <summary>
     /// Executes an executable by the specified <paramref name="exePath"/>.
     /// </summary>
-    /// <param name="exePath">Defines the path to executable.</param>
-    /// <param name="arguments">Represents the command line arguments.</param>
+    /// <param name="exePath">The path to the executable file to run.</param>
+    /// <param name="arguments">Command line arguments to pass into the executable.</param>
     /// <param name="extractOutput">Defines whether to redirect and extract standard output and errors or not.</param>
-    /// <param name="workingDirectory">The current working directory.
-    /// Relative paths inside the executable will be relative to this working directory.</param>
-    /// <param name="waitForExit">A number of millisecoonds to wait for process ending.
+    /// <param name="workingDirectory">The working directory to launch the executable in.</param>
+    /// <param name="waitForExit">A number of millisecoonds to wait for the process ending.
     /// Use <see cref="int.MaxValue"/> to wait infinitely.
     /// </param>
     /// <returns>An exit result.</returns>
     /// <exception cref="InvalidOperationException">See the inner exception for details.</exception>
     /// <example>
+    /// <code>
     /// var result = ExeHelper.Execute(
     /// @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
     /// "--app=http://www.google.com --window-size=300,300 --new-window",
@@ -37,6 +37,7 @@ public static class ExeHelper
     /// Console.WriteLine(result.ExitCode); // An exit code: value returned by `Main` or by `Environment.Exit(exitCode)` etc.
     /// Console.WriteLine(result.Output); // Output like `Console.WriteLine` is available here
     /// Console.WriteLine(result.Error); // Output like `Console.Error.WriteLine` is available here.
+    /// </code>
     /// </example>
     public static ExeResult Execute(
         string exePath,
@@ -51,11 +52,11 @@ public static class ExeHelper
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    Arguments = arguments,
                     FileName = exePath,
+                    Arguments = arguments,
+                    WorkingDirectory = workingDirectory,
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
-                    WorkingDirectory = workingDirectory,
                     UseShellExecute = false,
                     RedirectStandardOutput = extractOutput,
                     RedirectStandardError = extractOutput,
@@ -85,13 +86,87 @@ public static class ExeHelper
     }
 
     /// <summary>
-    /// Executes an executable by the specified path. Does not extract output and error streams.
+    /// Executes an executable by the specified <paramref name="exePath"/>. Does not extract output and error streams.
     /// </summary>
-    /// <param name="exePath">The execute path.</param>
-    /// <param name="arguments">The arguments.</param>
-    /// <param name="workingDirectory">The working directory.</param>
-    /// <returns>An executable's exit code.</returns>
-    /// <exception cref="InvalidOperationException">See the inner exception for details.</exception>
+    /// <param name="exePath">The path to the executable file to run.</param>
+    /// <param name="arguments">Command line arguments to pass into the executable.</param>
+    /// <param name="workingDirectory">The working directory to launch the executable in.</param>
+    /// <returns>The exit code of the executable.</returns>
+    /// <exception cref="InvalidOperationException">See the inner exception for more details.</exception>
     public static int Execute(string exePath, string arguments, string workingDirectory = "")
         => Execute(exePath, arguments, false, workingDirectory, int.MaxValue).ExitCode;
+
+    /// <summary>
+    /// Executes an executable by the specified <paramref name="exePath"/>.
+    /// Asynchronously forwards <see cref="Process.StandardOutput"/> and <see cref="Process.StandardError"/>
+    /// of the executable to the specified <paramref name="outputWriter"/> and <paramref name="errorWriter"/> using
+    /// the intermediate <c>char</c> buffer with the specified <paramref name="bufferSize"/>.
+    /// </summary>
+    /// <param name="exePath">The path to the executable file to run.</param>
+    /// <param name="arguments">Command line arguments to pass into the executable.</param>
+    /// <param name="outputWriter">The text writer to forward the standard output stream to.</param>
+    /// <param name="errorWriter">The text writer to forward the standard error stream to.</param>
+    /// <param name="workingDirectory">The working directory to launch the executable in.</param>
+    /// <param name="waitForExit">A number of millisecoonds to wait for the process ending.
+    /// Use <see cref="int.MaxValue"/> to wait infinitely.
+    /// </param>
+    /// <param name="bufferSize">The sizes of the intermediate buffers to use for forwarding in number of <c>char</c>.</param>
+    /// <returns>The exit code of the executable.</returns>
+    /// <exception cref="InvalidOperationException">See the inner exception for more details.</exception>
+    /// <example>
+    /// Launch an executable and forward its output and error streams while it is running.
+    /// <code>
+    /// var output = new StringWriter();
+    /// var error = new StringWriter();
+    ///
+    /// var exitCode =  ExeHelper.Execute("dotnet.exe", "--UNKNOWN", output, error, string.Empty, 5000, 2048);
+    ///
+    /// var o = output.ToString();
+    /// var e = error.ToString();
+    /// </code>
+    /// Launch an executable and forward its output and error streams to the <see cref="Console"/> of the main process.
+    /// <code>
+    /// var exitCode =  ExeHelper.Execute("dotnet.exe", "--UNKNOWN", Console.Out, Console.Error, string.Empty, 5000, 2048);
+    /// </code>
+    /// </example>
+    public static int Execute(
+        string exePath,
+        string arguments,
+        TextWriter outputWriter,
+        TextWriter errorWriter,
+        string workingDirectory = "",
+        int waitForExit = int.MaxValue,
+        int bufferSize = 4096)
+    {
+        try
+        {
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = exePath;
+                process.StartInfo.Arguments = arguments;
+                process.StartInfo.WorkingDirectory = workingDirectory;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardOutput = true;
+
+                process.Start();
+
+                var outputRedirector = new StreamRedirector(process.StandardOutput, outputWriter, bufferSize);
+                var errorRedirector = new StreamRedirector(process.StandardError, errorWriter, bufferSize);
+
+                outputRedirector.Start();
+                errorRedirector.Start();
+
+                process.WaitForExit(waitForExit);
+
+                return process.ExitCode;
+            }
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(e.Message, e);
+        }
+    }
 }

@@ -19,9 +19,9 @@ using static Heleonix.Testing.NUnit.Aaa.AaaSpec;
 public static class ExeHelperTests
 {
     /// <summary>
-    /// Tests the <see cref="ExeHelper.Execute(string,string,bool,string,int)"/>.
+    /// Tests the <see cref="ExeHelper.Execute(string, string, bool, string, int)"/>.
     /// </summary>
-    [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,bool,string,int)")]
+    [MemberTest(Name = nameof(ExeHelper.Execute) + "(string, string, bool, string, int)")]
     public static void Execute1()
     {
         When("the method is executed", () =>
@@ -102,9 +102,9 @@ public static class ExeHelperTests
     }
 
     /// <summary>
-    /// Tests the <see cref="ExeHelper.Execute(string,string,string)"/>.
+    /// Tests the <see cref="ExeHelper.Execute(string, string, string)"/>.
     /// </summary>
-    [MemberTest(Name = nameof(ExeHelper.Execute) + "(string,string,string)")]
+    [MemberTest(Name = nameof(ExeHelper.Execute) + "(string, string, string)")]
     public static void Execute2()
     {
         When("the method is executed", () =>
@@ -122,6 +122,64 @@ public static class ExeHelperTests
             Should("return success exit code", () =>
             {
                 Assert.That(result, Is.Zero);
+            });
+        });
+    }
+
+    /// <summary>
+    /// Tests the <see cref="ExeHelper.Execute(string, string, TextWriter, TextWriter, string, int, int)"/>.
+    /// </summary>
+    [MemberTest(Name = nameof(ExeHelper.Execute) + "(string, string, TextWriter, TextWriter, string, int, int)")]
+    public static void Execute3()
+    {
+        When("the method is executed", () =>
+        {
+            var result = 0;
+            string exePath = null;
+            Exception thrownException = null;
+            StringWriter output = null;
+            StringWriter error = null;
+
+            Arrange(() =>
+            {
+                exePath = "dotnet.exe";
+                error = new ();
+                output = new ();
+            });
+
+            Act(() =>
+            {
+                try
+                {
+                    result = ExeHelper.Execute(exePath, "--UNKNOWN", output, error, string.Empty, 5000, 2048);
+                }
+                catch (Exception e)
+                {
+                    thrownException = e;
+                }
+            });
+
+            And("executable file name is specified", () =>
+            {
+                Should("return an exit code with forwarder output and error streams", () =>
+                {
+                    Assert.That(result, Is.EqualTo(1));
+                    Assert.That(output.ToString(), Contains.Substring("You misspelled a built-in dotnet command"));
+                    Assert.That(error.ToString(), Contains.Substring("the specified command or file was not found"));
+                });
+            });
+
+            And("executable file name is not specified", () =>
+            {
+                Arrange(() =>
+                {
+                    exePath = null;
+                });
+
+                Should("throw the InvalidOperationException", () =>
+                {
+                    Assert.That(thrownException, Is.InstanceOf<InvalidOperationException>());
+                });
             });
         });
     }
